@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Add User</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="css/Add User Style.css">
+</head>
+
+<body>
+
+  <div class="dropdown">
+    <button class="dropbtn">Welcome Admin</button>
+    <div class="dropdown-content">
+      <a href="#">LogOut</a>
+    </div>
+  </div>
+
+  
+
+  <div class="Admin_Options">
+    <button type="button" name="Bugs">Bugs</button>
+    <button type="button" name="Manage Users">Manage Users</button>
+    <button type="button" name="Statistics">Statistics</button>
+  </div>
+
+  <div class="Manage_User_Options">
+    <li>
+      <button type="button" name="User List">User List</button>
+    </li>
+    <li>
+      <button type="button" name="Add User">Add User</button>
+    </li>
+    <li>
+      <button type="button" name="Remove User">Remove User</button>
+    </li>
+  </div>
+
+
+ <aside>
+  <form class="Add_User" action="index.html" method="post">
+    <ul>
+      <li>
+        <label for="role">Select Role</label>
+        <select class="role" name="role">
+          <option value="Please Select">Please Select</option>
+          <option value="Developer">Deveoper</option>
+          <option value="Tester">Tester</option>
+
+        </select>
+      </li>
+
+      <li>
+        <label for="name">Full Name</label>
+        <input id="name" name = "name"/>
+      </li>
+
+      <li>
+        <label for="contact_no">Contact No</label>
+        <input id="contact_no" name = "contact_no"/>
+      </li>
+
+      <li>
+        <label for="eid">Employee Id</label>
+        <input id="eid" name = "eid"/>
+        <button type="generate_eid" onclick="">Generate</button>
+      </li>
+
+      <li>
+        <label for="email">Email Id</label>
+        <input id="email" name = "email"/>
+        <button type="generate_email" onclick="">Generate</button>
+      </li>
+
+      <li>
+        <label for="password">Password</label>
+        <input id="passsword" name = "eid"/>
+        <button type="generate_pwd" onclick="">Generate</button>
+      </li>
+
+      <li>
+        <label for="Description">Description</label>
+        <textarea name="Description" rows="5" cols="50"></textarea>
+      </li>
+
+      <li>
+        <input type="submit" name="Confirm" value="Confirm">
+        <input type="reset" name="Reset" value="Reset">
+      </li>
+
+    </ul>
+  </form>
+  </aside>
+
+
+</body>
+
+
+</html>
