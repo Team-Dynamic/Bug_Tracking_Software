@@ -1,0 +1,23 @@
+{
+  "name": "bug_tracking_software",
+  "version": "1.0.0",
+  "description": "Bug Tracking Software",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Dynamic/Bug_Tracking_Software.git"
+  },
+  "author": "Ayush",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Dynamic/Bug_Tracking_Software/issues"
+  },
+  "homepage": "https://github.com/Team-Dynamic/Bug_Tracking_Software#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
