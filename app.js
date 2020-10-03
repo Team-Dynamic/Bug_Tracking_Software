@@ -20,9 +20,18 @@ app.get('/userlist',function(req,res){
   res.sendFile(__dirname + "/UI/Add User.html")
 })
 
-app.post('/adduser',function(req,res){
-  res.redirect("/");
+app.post('/',function(req,res){
+  res.redirect("/adduser");
 })
+
+app.post('/',function(req,res){
+  res.redirect("/adduser");
+})
+
+app.post('/',function(req,res){
+  res.redirect("/adduser");
+})
+
 
 
 
