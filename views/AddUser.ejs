@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Add User</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="css/Add User Style.css">
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="top">
+      <input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search..">
+      <div class="dropdown">
+        <button class="dropbtn">Welcome Admin</button>
+        <div class="dropdown-content">
+          <a href="/">LogOut</a>
+        </div>
+      </div>
+      <img src="images/logo.png" alt="logo">
+    </div>
+
+    <nav class="menu">
+      <a href="/bugslist">Bugs</a>
+      <a href="/userlist">Manage Users</a>
+      <a href="#">Statistics</a>
+    </nav>
+
+    <div class="bottom">
+      <div class="Manage_User_Options" id="leftbox">
+        <li>
+          <a target="_top" href="/userlist">User List</a>
+        </li>
+        <li>
+          <a target="_top" href="/adduser">Add User</a>
+        </li>
+        <li>
+          <a target="_top" href="#">Requests</a>
+        </li>
+      </div>
+
+
+      <form class="Add_User_Form" id="rightbox" action="/adduser" enctype="text/plain" method="post">
+        <ul>
+          <li>
+            <label for="role">Select Role</label>
+            <select id="role" name="role">
+              <option value="Please Select">Please Select</option>
+              <option value="Developer">Deveoper</option>
+              <option value="Tester">Tester</option>
+
+            </select>
+          </li>
+
+          <li>
+            <label for="name">Full Name</label>
+            <input id="name" name="name" />
+          </li>
+
+          <li>
+            <label for="contact_no">Contact No</label>
+            <input id="contact_no" type="tel" name="contact_no" />
+          </li>
+
+          <li>
+            <label for="eid">Employee Id</label>
+            <input id="eid" name="eid" />
+            <button type="button" onclick="#">Generate</button>
+          </li>
+
+          <li>
+            <label for="email">Email Id</label>
+            <input id="email" type="email" name="email" />
+          </li>
+
+          <li>
+            <label for="password">Password</label>
+            <input id="passsword" type="password" name="eid" />
+            <button type="button" onclick="#">Generate</button>
+          </li>
+
+          <li>
+            <label for="Description">Description</label>
+            <textarea name="Description" rows="5" cols="30"></textarea>
+          </li>
+
+          <li>
+            <input type="submit" name="Confirm" value="Confirm">
+            <input type="reset" name="Reset" value="Reset">
+          </li>
+
+        </ul>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="js/user list.js" charset="utf-8"></script>
+</body>
+
+
+</html>
