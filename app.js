@@ -79,14 +79,14 @@ const user3  = new user ({
 
 const defaultusers = [user1,user2,user3];
 
-user.insertMany([user1, user2, user3], function(err)
+/*user.insertMany([user1, user2, user3], function(err)
 {
 if (err){
   console.log(err);
 }
 else{
    console.log("Successful");
-}});
+}});*/
 
 
 
