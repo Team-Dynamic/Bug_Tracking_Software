@@ -17,7 +17,7 @@
       <div class="dropdown">
         <button class="dropbtn">Welcome Admin</button>
         <div class="dropdown-content">
-          <a href="#">LogOut</a>
+          <a href="/">LogOut</a>
         </div>
       </div>
       <img src="images/logo.png" alt="logo">
@@ -25,8 +25,8 @@
 
 
     <nav class="menu">
-      <a href="bugs list.html">Bugs</a>
-      <a href="User list.html">Manage Users</a>
+      <a href="/bugslist">Bugs</a>
+      <a href="/userlist">Manage Users</a>
       <a href="#">Statistics</a>
     </nav>
 
@@ -36,7 +36,7 @@
           <table id="bugs_list">
             <thead>
               <tr>
-                <th onclick=sortTable(0)>S.No</th>
+
                 <th>Bug Id</th>
                 <th>Project Id</th>
                 <th onclick=sortTable(3)>Category</th>
@@ -48,54 +48,26 @@
             </thead>
 
             <tbody>
+            <% bugs.forEach(function(details){ %>
+
               <tr>
-                <td>1</td>
-                <td>AM3201</td>
-                <td>5232</td>
-                <td>A</td>
-                <td>M</td>
-                <td>06/03/1998</td>
-                <td>02/10/2020</td>
+                
+                <td><%=details.bug_id %></td>
+                <td><%=details.project_id %></td>
+                <td><%=details.category %></td>
+                <td><%=details.severity %></td>
+                <td> 2020-10-06</td>
+                <td><%=details.due_date %></td>
                 <td>
-                  <select class="bug_status" name="bug_status">
-                    <option value="n">Not Fixed</option>
-                    <option value="y">Fixed</option>
-                    <option value="y">Unassigned</option>
+                  <select class = "bug_status" name = "bug_status">
+                    <option value ='y'> Unassigned </option>
+                    <option value ='y'> Fixed </option>
+                    <option value ='n'> Not Fixed </option>
                   </select>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>CH3202</td>
-                <td>5232</td>
-                <td>C</td>
-                <td>H</td>
-                <td>05/06/2001</td>
-                <td>02/09/2020</td>
-                <td>
-                  <select class="bug_status" name="bug_status">
-                    <option value="y">Unassigned</option>
-                    <option value="y">Fixed</option>
-                    <option value="n">Not Fixed</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>BL3203</td>
-                <td>5232</td>
-                <td>B</td>
-                <td>L</td>
-                <td>25/03/2005</td>
-                <td>02/08/2020</td>
-                <td>
-                  <select class="bug_status" name="bug_status">
-                    <option value="n">Fixed</option>
-                    <option value="y">Not Fixed</option>
-                    <option value="y">Unassigned</option>
-                  </select>
-                </td>
-              </tr>
+
+          <%  }) %>
             </tbody>
 
             <tfoot>

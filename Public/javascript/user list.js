@@ -1,78 +1,85 @@
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("Employee_List dev_works bugs_list");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("td")[n];
-      y = rows[i + 1].getElementsByTagName("td")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
+<!DOCTYPE html>
+<html>
 
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i,j, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toLowerCase();
-  table = document.getElementById("Employee_List dev_works bugs_list");
-  tr = table.getElementsByTagName("tr");
+<head>
+  <title>User List</title>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/user list.css">
+</head>
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 1; i < tr.length; i++) {
-    let k = 0;
-    td = tr[i].getElementsByTagName("td");
-    for(j = 0;j<td.length;j++){
-      if (td[j]) {
-       txtValue = td[j].textContent || td[j].innerText;
-       if (txtValue.toLowerCase().indexOf(filter)>-1) {
-         k++;
-       }
-      }
-    }
-    (k>0) ? tr[i].style.display = "":tr[i].style.display = "none";
-  }
-}
+<body>
+  <div class="wrapper">
+
+    <div class="top">
+      <input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search..">
+
+      <div class="dropdown">
+        <button class="dropbtn">Welcome Admin</button>
+        <div class="dropdown-content">
+          <a href="/">LogOut</a>
+        </div>
+      </div>
+      <img src="images/logo.png" alt="logo">
+    </div>
+
+
+    <nav class="menu">
+      <a href="/busgslist">Bugs</a>
+      <a href="/userlist">Manage Users</a>
+      <a href="#">Statistics</a>
+    </nav>
+
+    <div class="bottom">
+      <div class="Manage_User_Options" id="leftbox">
+        <li>
+          <a target="_top" href="/userlist">User List</a>
+        </li>
+        <li>
+          <a target="_top" href="/adduser">Add User</a>
+        </li>
+        <li>
+          <a target="_top" href="#">Requests</a>
+        </li>
+      </div>
+
+      <div class="user_list" id="rightbox">
+        <div style="overflow-x:auto;">
+          <table id="Employee_List" -->
+            <thead>
+              <tr>
+                <th onclick=sortTable(0)>Employee Id</th>
+                <th onclick=sortTable(1)>Name of Employee</th>
+                <th>Contact No</th>
+                <th>Email Id</th>
+                <th onclick=sortTable(4)>Role</th>
+                <th>Projects Assigned</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            <% userList.forEach(function(details){ %>
+              <tr>
+                <td><%=details.employee_Id %></td>
+                <td><%=details.name %></td>
+                <td><%=details.contact %></td>
+                <td><%=details.email %></td>
+                <td><%=details.role %></td>
+                <td><%=details.project_assigned %></td>
+              </tr>
+          <%  }) %>
+            </tbody>
+
+            <tfoot>
+
+            </tfoot>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="javascript/user_list.js" charset="utf-8"></script>
+</body>
