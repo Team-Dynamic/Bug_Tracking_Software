@@ -36,7 +36,8 @@ body {
 
 
 .menu {
-  background-color: #e8a87c;
+  background-color: #337ab7;
+  border-color: #2e6da4;
   display: grid;
   padding: 0;
   list-style: none;
@@ -202,6 +203,6 @@ input[type=text]:focus {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: goldenrod;
+  background-color: #0099CC;
   color: white;
 }
