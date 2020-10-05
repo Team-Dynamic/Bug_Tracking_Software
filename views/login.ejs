@@ -43,11 +43,11 @@
 
 <body class="text-center">
 
-    <form class="form-signin">
+    <form class="form-signin" action = "/" method="post">
       <img class="mb-4" src="images/logo.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Dynamic Bug Tracking System</h1>
 
-      <input type="text" name="login_id" class="form-control top" placeholder="Login Id" required autofocus>
+      <input type="text" name="username" class="form-control top" placeholder="Login Id" required autofocus>
       <input type="password" name="password" class="form-control bottom" placeholder="Password" required>
       <div class="checkbox mb-3">
 
@@ -61,7 +61,7 @@
           Forgot
         </span>
 
-        <a href="forgotpassword.html" class="txt2">
+        <a href="/forgotpassword" class="txt2">
           Username / Password?
         </a>
       </li>
@@ -71,7 +71,7 @@
           Don’t have an account?
         </span>
 
-        <a href="signup.html" class="txt2">
+        <a href="/signup" class="txt2">
           Sign up
         </a>
       </li>

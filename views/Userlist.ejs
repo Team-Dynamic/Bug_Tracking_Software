@@ -17,7 +17,7 @@
       <div class="dropdown">
         <button class="dropbtn">Welcome Admin</button>
         <div class="dropdown-content">
-          <a href="#">LogOut</a>
+          <a href="/">LogOut</a>
         </div>
       </div>
       <img src="images/logo.png" alt="logo">
@@ -26,7 +26,7 @@
 
     <nav class="menu">
       <a href="/bugslist">Bugs</a>
-      <a href="/userlist">Manage Users</a>
+      <a href="/userlist">Assigning Users</a>
       <a href="#">Statistics</a>
     </nav>
 
@@ -39,7 +39,7 @@
           <a target="_top" href="/adduser">Add User</a>
         </li>
         <li>
-          <a target="_top" href="#">Requests</a>
+          <a target="_top" href="/requests">Requests</a>
         </li>
       </div>
 
@@ -58,24 +58,16 @@
             </thead>
 
             <tbody>
-
+            <% userList.forEach(function(details){ %>
               <tr>
-                <td>1</td>
-                <td>Rakesh</td>
-                <td>5232</td>
-                <td>lollipop2@gmail.com</td>
-                <td>Developer</td>
-                <td>52,36</td>
+                <td><%=details.employee_Id %></td>
+                <td><%=details.name %></td>
+                <td><%=details.contact %></td>
+                <td><%=details.email %></td>
+                <td><%=details.role %></td>
+                <td><%=details.project_assigned %></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Olivia</td>
-                <td>2461</td>
-                <td>popcorn@gmail.com</td>
-                <td>Tester</td>
-                <td>2153,361</td>
-              </tr>
-
+          <%  }) %>
             </tbody>
 
             <tfoot>
@@ -89,5 +81,5 @@
     </div>
 
   </div>
-  <script src="js/user list.js" charset="utf-8"></script>
+  <script src="javascript/user_list.js" charset="utf-8"></script>
 </body>
