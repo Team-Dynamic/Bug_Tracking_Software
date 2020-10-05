@@ -27,6 +27,11 @@ body {
   font-size: 15px;
   letter-spacing: -1px;
   display: block;
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
 }
 
 
@@ -107,7 +112,7 @@ input[type=text]:focus {
 
 #rightbox {
   float: right;
-  background: white;
+  background: inherit;
   width: 80%;
   text-align: center;
 }
