@@ -1,105 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <title>Login</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Favicons -->
+  <meta name="theme-color" content="#563d7c">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
-<!--===============================================================================================-->
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link href="css/login.css" rel="stylesheet">
 </head>
-<body>
 
-	<div class="limiter">
-		<div class="support">
-			<ul>
-				<li>
-					<a href="#">About Us</a>
-				</li>
-				<li>
-					<a href="#">Support</a>
-				</li>
-			</ul>
-		</div>
-		<div class="container-login100">
-			<div class="wrap-login100 p-t-85 p-b-20">
-				<form class="login100-form validate-form" action="/" method="post">
-					<span class="login100-form-title p-b-70">
-						Welcome to <br> Dynamic Bug Tracker System
-					</span>
-					<span class="login100-form-avatar">
-						<img src="images/logo.png" alt="AVATAR">
-					</span>
+<body class="text-center">
 
-					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
-						<input class="input100" type="text" name="username">
-						<span class="focus-input100" data-placeholder="Username"></span>
-					</div>
+    <form class="form-signin">
+      <img class="mb-4" src="images/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Dynamic Bug Tracking System</h1>
 
-					<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-						<input class="input100" type="password" name="password">
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
+      <input type="text" name="login_id" class="form-control top" placeholder="Login Id" required autofocus>
+      <input type="password" name="password" class="form-control bottom" placeholder="Password" required>
+      <div class="checkbox mb-3">
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Dynamic BTS</p>
+    </form>
 
-					<ul class="login-more p-t-190">
-						<li class="m-b-8">
-							<span class="txt1">
-								Forgot
-							</span>
+    <ul class="login-more p-t-190">
+      <li class="m-b-8">
+        <span class="txt1">
+          Forgot
+        </span>
 
-							<a href="#" class="txt2">
-								Username / Password?
-							</a>
-						</li>
+        <a href="forgotpassword.html" class="txt2">
+          Username / Password?
+        </a>
+      </li>
 
-						<li>
-							<span class="txt1">
-								Don’t have an account?
-							</span>
+      <li>
+        <span class="txt1">
+          Don’t have an account?
+        </span>
 
-							<a href="/signup" class="txt2">
-								Sign up
-							</a>
-						</li>
-					</ul>
-				</form>
-			</div>
-		</div>
-	</div>
+        <a href="signup.html" class="txt2">
+          Sign up
+        </a>
+      </li>
+    </ul>
 
+    <table>
+      <tr>
+        <td>
+          <a href="#">About Us</a>
+        </td>
+        <td>
+          <a href="#">Support</a>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-	<div id="dropDownSelect1"></div>
-
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
 
 </body>
+
 </html>
