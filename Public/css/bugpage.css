@@ -1,0 +1,52 @@
+body, html {
+    height: 100%;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+body {
+  display: tablex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+/* Chat containers */
+.list-group li:nth-child(odd) { background: #94b4a4; }
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.img-valign {
+  max-width: 60px;
+  width: 100%;
+  vertical-align: middle;
+  margin-bottom: 0.75em;
+  float: left;
+  border-radius: 50%;
+}
+
+.text1 {
+  float: left;
+  margin-left: 20px;
+}
+.text2 {
+  font-size: 25px;
+  float: left;
+  margin-left: 20px;
+}
+/* Style time text */
+.time-right {
+  float: right;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
