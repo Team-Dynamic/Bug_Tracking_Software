@@ -26,7 +26,7 @@ const bugSchema = new mongoose.Schema({
       type: String,
       required: true,
       unique: true
-    }
+    },
     project: {
         type : String,
         required : [true, "Please fill the details"]

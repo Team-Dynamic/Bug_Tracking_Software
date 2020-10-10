@@ -91,14 +91,14 @@
     <div class="text">
       Side Menu</div>
     <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
       <li>
         <a href="#" class="feat-btn">Bugs
           <span class="fas fa-caret-down first"></span>
         </a>
         <ul class="feat-show">
-          <li><a href="bugslist.html">Bugs List</a></li>
-          <li><a href="assign.html">Assign</a></li>
+          <li><a href="/bugslist">Bugs List</a></li>
+          <li><a href="/assign">Assign</a></li>
         </ul>
       </li>
       <li class="active">
@@ -106,13 +106,12 @@
           <span class="fas fa-caret-down second"></span>
         </a>
         <ul class="serv-show">
-          <li><a href="userlist.html">User List</a></li>
-          <li><a href="adduser.html">Add User</a></li>
-          <li><a href="requests.html">Requests</a></li>
-          <li><a href="removeuser.html">Remove User</a></li>
+          <li><a href="/userlist">User List</a></li>
+          <li><a href="/requests">Requests</a></li>
+          <li><a href="/removeuser">Remove User</a></li>
         </ul>
       </li>
-      <li><a href="reportbugadmin.html">Report Bug</a></li>
+      <li><a href="/reportbugadmin">Report Bug</a></li>
     </ul>
   </nav>
 
@@ -148,7 +147,7 @@
     <table id="user_table" class="table">
       <thead class="thead-dark sticky">
         <tr>
-          <th scope="col">Employee Id</th>
+          <th scope="col">Username</th>
           <th onclick="sortTable(1)" scope="col">Name</th>
           <th onclick="sortTable(2)" scope="col">Role</th>
           <th scope="col">Contact No</th>
@@ -157,22 +156,16 @@
         </tr>
       </thead>
       <tbody id="myTable">
+        <%userli.forEach(function(details) { %>
         <tr>
-          <th scope="row">1</th>
-          <td>Sri ram</td>
-          <td>Tester</td>
-          <td>9932362723</td>
-          <td>gvs.iitkgp@gmail.com</td>
-          <td>1234</td>
+          <th scope="row"><%=details.username %></th>
+          <td><%=details.name %></td>
+          <td><%=details.role %></td>
+          <td><%=details.contact %></td>
+          <td><%=details.email %></td>
+          <td><%=details.project %></td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Ashok</td>
-          <td>Developer</td>
-          <td>123456789</td>
-          <td>banothashok2015@gmail.com</td>
-          <td>1234</td>
-        </tr>
+      <%}) %>
       </tbody>
     </table>
   </div>

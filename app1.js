@@ -57,6 +57,7 @@ const employeeSchema = new mongoose.Schema({
      enum: ['developer', 'tester', 'admin']
     },
     project: String,
+    projectId: String,
 });
 
 employeeSchema.plugin(passportLocalMongoose);
@@ -142,8 +143,6 @@ const requestSchema = new mongoose.Schema({
   },
 })
 
-
-
 const user1  = new user ({
     username: "Adm0001",
     name: "Gaurav Garg",
@@ -153,8 +152,6 @@ const user1  = new user ({
     projects: "Bug Tracking",
     password: "password1"
 });
-
-
 
 user.find({},function(err, foundusers){
   if(foundusers.length === 0){
@@ -254,7 +251,43 @@ app.post("/forgotpassword", function(req,res) {
 //Admin module
 app.get("/bugslist",function(req,res){
   if(req.isAuthenticated()){
-    res.render("bugslist");
+    console.log("running total bugs list for admin.");
+    bug.find({},function(err, foundbugs){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log(foundbugs);
+        console.log(req.user.name);
+        res.render("bugslist",{listbugs:foundbugs,uname:req.user.name});
+      }
+   });
+  }else{
+    res.redirect("/");
+  }
+})
+
+app.get("/assign",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("assign");
+  }else{
+    res.redirect("/");
+  }
+})
+
+app.get("/userlist",function(req,res){
+  if(req.isAuthenticated()){
+    console.log("running bugs list of tester.");
+    user.find({},function(err, foundusers){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log(foundusers);
+        console.log(req.user.name);
+        res.render("userlist",{userli:foundusers,uname:req.user.name});
+      }
+   });
   }else{
     res.redirect("/");
   }
@@ -271,7 +304,7 @@ app.get("/developerhomepage",function(req,res){
 //Tester module
 app.get("/testerhomepage",function(req,res){
   if(req.isAuthenticated()){
-    console.log("running user list.");
+    console.log("running bugs list of tester.");
     bug.find({},function(err, foundbugs){
       if(err){
         console.log(err);
