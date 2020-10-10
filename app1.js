@@ -156,31 +156,24 @@ const user1  = new user ({
     password: "password1"
 });
 
-user.register({name: user1.name,email: user1.email,contact:user1.contact,
-role:user1.role,username:user1.username}, user1.password, function(err,user) {
-  if(err){
-    console.log(err);
-    res.redirect("/signup");
-  }else{
-    console.log("Admin has been added to the database.")
-}
-});
 
-/*user.find({},function(err, foundusers){
+
+user.find({},function(err, foundusers){
   if(foundusers.length === 0){
-    user.insertMany([user1, user2, user3], function(err){
-    if (err){
-      console.log(err);
+    user.register({name: user1.name,email: user1.email,contact:user1.contact,
+    role:user1.role,username:user1.username}, user1.password, function(err,user) {
+      if(err){
+        console.log(err);
+        res.redirect("/signup");
+      }else{
+        console.log("Admin has been added to the database.")
     }
-    else{
-       console.log("Successful in adding default users.");
-    }
-  })
+    });
 }
   else{
     console.log("Default users already added to the database");
   }
-})*/
+})
 
 const request = mongoose.model("request",requestSchema);
 
@@ -200,13 +193,17 @@ app.get('/forgotpassword',function(req,res){
     res.render("forgotpassword");
 });
 
+app.get("/logout", function(req,res){
+  req.logout();
+  res.redirect("/");
+})
+
 app.post("/signup",function(req, res){
   console.log(req.body.fname);
   user.register({name: req.body.fname,email: req.body.email,contact:req.body.contact_no,
   role:req.body.role,username:req.body.username}, req.body.password, function(err,user) {
     if(err){
       console.log(err);
-
       res.redirect("/signup");
     }else{
       res.send("Your signup request has been sent to the admin. Please check your mail for approval.");

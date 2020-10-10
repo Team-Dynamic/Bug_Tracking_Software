@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 const app = express();
-var bugs = [];
 
 app.set("view engine","ejs");
 
@@ -18,35 +17,45 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost:27017/bugProjectDB", { useNewUrlParser: true, useUnifiedTopology: true  });
 
 const bugSchema = new mongoose.Schema({
-    Bug_id: String,
-    Project: {
+    bugId: {
+      type: String,
+      required: [true, "Please fill the details"],
+      unique: true
+    },
+    projectId: {
+      type: String,
+      required: true,
+      unique: true
+    }
+    project: {
         type : String,
         required : [true, "Please fill the details"]
     },
-    Category:{
+    category:{
         type : String,
-        },
-
-    Severity : {
+    },
+    severity : {
      type : String,
      enum : ['Low', 'Medium', 'High'],
     },
-
-    Status:
+    status:
     {
-        type: String
+        type: String,
+        enum: ["to do", "in progress", "in review", "fixed"]
     },
-
-    Reported_by :
+    reportedBy :
     {
         type : addUserSchema
     },
-  OpenedDate: {
+    openedDate: {
       type: String
     },
-   DueDate: {
+    dueDate: {
        type: String
-}
+    },
+    description:{
+       type: String
+    }
 });
 
 const bug = mongoose.model("bug",bugSchema);
@@ -290,13 +299,6 @@ app.post('/',function(req,res){
 });
 
 //Admin module
-app.get('/headeradmin',function(req,res){
-  res.render("headeradmin");
-});
-
-app.get('/headertester',function(req,res){
-  res.render("headertester");
-});
 
 app.get('/assign',function(req,res){
   res.render("assign");
