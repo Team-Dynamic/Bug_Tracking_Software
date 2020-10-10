@@ -22,10 +22,10 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/bugUserdb", { useNewUrlParser: true, useUnifiedTopology: true  });
+mongoose.connect("mongodb://localhost:27017/bugtrackingdb", { useNewUrlParser: true, useUnifiedTopology: true  });
 mongoose.set("useCreateIndex", true);
 
-const bugUserSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -56,18 +56,68 @@ const bugUserSchema = new mongoose.Schema({
      type: String,
      enum: ['developer', 'tester', 'admin']
     },
-    projects: String,
+    project: String,
 });
 
-bugUserSchema.plugin(passportLocalMongoose);
-const user = mongoose.model("user",bugUserSchema);
+employeeSchema.plugin(passportLocalMongoose);
+const user = mongoose.model("user",employeeSchema);
 
 passport.use(user.createStrategy());
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
+const bugSchema = new mongoose.Schema({
+    bugId: {
+      type: String,
+      required: [true, "Please fill the details"],
+      unique: true
+    },
+    projectId: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    project: {
+        type : String,
+        required : [true, "Please fill the details"]
+    },
+    category:{
+        type : String,
+    },
+    severity : {
+     type : String,
+     enum : ['Low', 'Medium', 'High'],
+    },
+    status:
+    {
+        type: String,
+        enum: ["to do", "in progress", "in review", "fixed"]
+    },
+    reportedBy:
+    {
+        type: employeeSchema
+    },
+    assignedTo:{
+        type: employeeSchema
+    },
+    openedDate: {
+      type: String
+    },
+    dueDate: {
+       type: String
+    },
+    description:{
+       type: String
+    }
+});
+
+const bug = mongoose.model("bug",bugSchema);
+
 const requestSchema = new mongoose.Schema({
-  username: String,
+  username: {
+    type: String,
+    required: true,
+    unique: true},
   name: {
       type: String,
       required: [true, "Please fill the details"]
@@ -92,37 +142,28 @@ const requestSchema = new mongoose.Schema({
    type: String,
    enum: ['developer', 'tester', 'admin'],
   },
-  projects: String,
 })
 
+
+
 const user1  = new user ({
-    username: "Tst0001",
+    username: "Adm0001",
     name: "Gaurav Garg",
     email: "garggaurav460@gmail.com",
     contact: "9993041370",
-    role: "tester",
+    role: "admin",
     projects: "Bug Tracking",
     password: "password1"
 });
 
-const user2  = new user ({
-    username: "Dev0002",
-    name: "Rusheendra",
-    email: "rushee2911@gmail.com",
-    contact: "9440051673",
-    role: "developer",
-    projects: "Bug Tracking",
-    password: "password2"
-});
-
-const user3  = new user ({
-    username: "Adm0003",
-    name: "Trupti",
-    email: "Tnt10@gmail.com",
-    contact: "2122232212",
-    role: "admin",
-    projects: "Bug Tracking",
-    password: "password3"
+user.register({name: user1.name,email: user1.email,contact:user1.contact,
+role:user1.role,username:user1.username}, user1.password, function(err,user) {
+  if(err){
+    console.log(err);
+    res.redirect("/signup");
+  }else{
+    console.log("Admin has been added to the database.")
+}
 });
 
 /*user.find({},function(err, foundusers){
@@ -143,6 +184,9 @@ const user3  = new user ({
 
 const request = mongoose.model("request",requestSchema);
 
+//Global constants.
+var role = "";
+
 //signup and login module.
 app.get('/',function(req,res){
   res.render("login");
@@ -157,12 +201,12 @@ app.get('/forgotpassword',function(req,res){
 });
 
 app.post("/signup",function(req, res){
-  console.log(req.body);
-  console.log(req.body);
+  console.log(req.body.fname);
   user.register({name: req.body.fname,email: req.body.email,contact:req.body.contact_no,
-  role:req.body.role,username:req.body.username} ,req.body.password, function(err,user) {
+  role:req.body.role,username:req.body.username}, req.body.password, function(err,user) {
     if(err){
       console.log(err);
+
       res.redirect("/signup");
     }else{
       res.send("Your signup request has been sent to the admin. Please check your mail for approval.");
@@ -183,9 +227,9 @@ app.post("/", function(req, res) {
    }else{
      console.log(userLogin);
      passport.authenticate("local")(req, res, function(){
-       //console.log(req.user);
      console.log(req.user.role);
-     let page = "/" + req.user.role + "Homepage"
+     role = req.user.role ;
+     let page = "/" + req.user.role + "homepage"
      res.redirect(page);
     })
    }
@@ -196,11 +240,12 @@ app.post("/forgotpassword", function(req,res) {
    console.log(req.body);
    user.findOne({email:req.body.email},function(err,u){
      if(err){
-       res.json({success: false, message: 'Email is not correct.Please try again!'})
+       res.json({success: false, message: 'Email is not correct.Please try again!'});
+       res.redirect("/forgotpassword");
      }else{
      u.setPassword(req.body.new_password,function(err,u){
        if(err){
-         res.json({success: false, message: 'Password could not be saved.Please try again!'})
+         res.json({success: false, message: 'Password could not be saved.Please try again!'});
        }
        else{
          //res.json({success: true, message: 'Your new password has been saved successfully'})
@@ -212,12 +257,34 @@ app.post("/forgotpassword", function(req,res) {
  });
 })
 //Admin module
-
+app.get("/bugslist",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("bugslist");
+  }else{
+    res.redirect("/");
+  }
+})
 
 //Developer module
-
+app.get("/developerhomepage",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("developerhomepage");
+  }else{
+    res.redirect("/");
+  }
+})
 //Tester module
+app.get("/testerhomepage",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("testerhomepage");
+  }else{
+    res.redirect("/");
+  }
+})
 
+app.post("/testerhomepage",function(req,res){
+
+})
 //server
 app.listen(8484,function(){
   console.log("Server statred on  port 8484");
