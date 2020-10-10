@@ -88,17 +88,15 @@ const bugSchema = new mongoose.Schema({
      type : String,
      enum : ['Low', 'Medium', 'High'],
     },
-    status:
-    {
+    status: {
         type: String,
         enum: ["to do", "in progress", "in review", "fixed"]
     },
-    reportedBy:
-    {
-        type: String,
+    reportedBy:{
+        type: String
     },
     assignedTo:{
-        type: String,
+        type: String
     },
     openedDate: {
       type: String
@@ -274,13 +272,14 @@ app.get("/developerhomepage",function(req,res){
 app.get("/testerhomepage",function(req,res){
   if(req.isAuthenticated()){
     console.log("running user list.");
-    user.find({},function(err, foundusers){
+    bug.find({},function(err, foundbugs){
       if(err){
         console.log(err);
       }
       else{
-        console.log(foundusers.length);
-        res.render("testerhomepage",{bugList:foundusers});
+        console.log(foundbugs);
+        console.log(req.user.name);
+        res.render("testerhomepage",{bugslist:foundbugs,uname:req.user.name});
       }
    });
   }else{
@@ -298,14 +297,15 @@ app.get("/reportbugtester",function(req,res){
 
 app.post("/reportbugtester",function(req,res){
   console.log(req.body);
-  console.log(req.user);
+  console.log(req.user.name);
+  const op = req.user.name;
   const bug1 = new bug({
     bugId:req.body.bugId,
     projectId:req.body.projectId,
     category:req.body.category,
     severity:req.body.severity,
     status:"to do",
-    reportedBy:req.user.name,
+    reportedBy:op,
     description:req.body.comment,
     openedDate:req.body.openDate,
     dueDate:req.body.dueDate

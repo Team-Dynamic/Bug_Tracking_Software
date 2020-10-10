@@ -114,10 +114,10 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Welcome Tester
+              Welcome <%=uname %>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="userprofile.html">My Profile</a>
+              <a class="dropdown-item" href="userprofile">My Profile</a>
               <a class="dropdown-item" href="/logout">Logout</a>
             </div>
           </li>
@@ -193,54 +193,22 @@
       <div class='hidden_desc' id="Bugs_desc">
         <h2>Reported Bugs</h2>
         <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Bug ID <br>Project Name</div>
-              <div class="card-body">
-                <h5 class="card-title">Status: Active</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Reported Date: 7-Oct-2020 <br>Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Bug ID <br>Project Name</div>
-              <div class="card-body">
-                <h5 class="card-title">Status: Active</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Reported Date: 7-Oct-2020 <br>Dead Line: 12-Oct-2020</small>
+          <%bugslist.forEach(function(details){ %>
+            <%if(details.reportedBy===uname) {%>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header bg-transparent border-success">Bug Id:<%=details.bugId %><br>Project ID:<%=details.projectId %></div>
+                <div class="card-body">
+                  <h5 class="card-title">Status:<%=details.status %></h5>
+                  <p class="card-text"><strong>Reported by:</strong><%=details.reportedBy %></p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">Reported Date:<%=details.openedDate %> <br>Dead Line:<%=details.dueDate %></small>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Bug ID <br>Project Name</div>
-              <div class="card-body">
-                <h5 class="card-title">Status: Active</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Reported Date: 7-Oct-2020 <br>Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Bug ID <br>Project Name</div>
-              <div class="card-body">
-                <h5 class="card-title">Status: Active</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Reported Date: 7-Oct-2020 <br>Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
+          <%} %>
+        <%}) %>
         </div>
 
       </div>
@@ -260,45 +228,6 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Project ID</div>
-              <div class="card-body">
-                <h5 class="card-title">Project Name</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Project ID</div>
-              <div class="card-body">
-                <h5 class="card-title">Project Name</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="card-header bg-transparent border-success">Project ID</div>
-              <div class="card-body">
-                <h5 class="card-title">Project Name</h5>
-                <p class="card-text"><strong>Assigned to:</strong> GVS Sri ram</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Dead Line: 12-Oct-2020</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
       </div>
 
     </div>
