@@ -103,7 +103,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="userprofile.html">My Profile</a>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
               <!--<!<a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>-->
@@ -116,17 +116,17 @@
 
   <div class="container">
     <h2 class="">Report Bug</h2>
-    <form class="report_bug">
+    <form class="report_bug" action="/reportbugtester" method="post">
       <div class="form-group row">
         <label for="inputProjectId" class="col-sm-2 col-form-label">Project Id</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="inputProjectId" required autofocus>
+          <input type="text" name="projectId" class="form-control" id="inputProjectId" required autofocus>
         </div>
       </div>
       <div class="form-group row">
         <label for="inputBugCategory" class="col-sm-2 col-form-label">Bug Category</label>
         <div class="col-sm-4">
-          <select class="form-control" id="inputBugCategory" required>
+          <select class="form-control" name="category"id="inputBugCategory" required>
             <option value="" disabled selected>Choose one category...</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -139,36 +139,41 @@
       <div class="form-group row">
         <label for="inputBugSeverity" class="col-sm-2 col-form-label">Bug Severity</label>
         <div class="col-sm-4">
-          <select class="form-control" id="inputBugSeverity" required>
+          <select class="form-control" name="severity" id="inputBugSeverity" required>
             <option value="" disabled selected>Choose one...</option>
-            <option value="l">Low</option>
-            <option value="l">Medium</option>
-            <option value="l">High</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
           </select>
         </div>
       </div>
       <div class="form-group row">
         <label for="inputBugId" class="col-sm-2 col-form-label">Bug Id</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="inputBugId" required>
+          <input type="text" class="form-control" name="bugId" id="inputBugId" required>
         </div>
-        <button class="col-sm-2 btn btn-secondary"type="button" value="Input" name="generate_bug_id">Generate</button>
+      </div>
+      <div class="form-group row">
+        <label for="report_report_date" class="col-sm-2 col-form-label">Opening Date</label>
+        <div class="col-sm-4">
+          <input type="date" name="openedDate" class="form-control" id="report_report_date" placeholder="..." required>
+        </div>
       </div>
       <div class="form-group row">
         <label for="report_due_date" class="col-sm-2 col-form-label">Due Date</label>
         <div class="col-sm-4">
-          <input type="date" class="form-control" id="report_due_date" placeholder="..." required>
+          <input type="date" name="dueDate" class="form-control" id="report_due_date" placeholder="..." required>
         </div>
       </div>
       <div class="form-group row">
         <label for="report_bug_comments" class="col-sm-2 col-form-label">Comments</label>
         <div class="col-sm-4">
-          <textarea class="form-control" id="report_bug_comments" rows="3"></textarea>
+          <textarea class="form-control" name="comment" id="report_bug_comments" rows="3"></textarea>
         </div>
       </div>
       <div class="custom-file form-group row">
           <label class="custom-file-label col-sm-5" for="CustomFile">Choose file...</label>
-          <input type="file" accept="image/jpeg image/x-png" class="custom-file-input" id="CustomFile" required>
+          <input type="file" name="file" accept="image/jpeg image/x-png" class="custom-file-input" id="CustomFile" required>
           <div class="invalid-feedback">Invalid Format</div>
       </div>
       <div class="form-group row">
