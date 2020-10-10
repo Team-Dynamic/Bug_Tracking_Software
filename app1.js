@@ -279,6 +279,17 @@ app.get("/testerhomepage",function(req,res){
   }
 })
 
+app.get("/reportbugtester",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("reportbugtester");
+  }else{
+    res.redirect("/");
+  }
+})
+
+app.post("/reportbugtester",function(req,res){
+  console.log(req.body);
+})
 app.post("/testerhomepage",function(req,res){
 
 })
