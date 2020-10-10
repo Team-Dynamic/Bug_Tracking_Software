@@ -78,8 +78,8 @@ const bugSchema = new mongoose.Schema({
       unique: true
     },
     project: {
-        type : String,
-        required : [true, "Please fill the details"]
+        type : String
+        //required : [true, "Please fill the details"]
     },
     category:{
         type : String,
@@ -95,10 +95,10 @@ const bugSchema = new mongoose.Schema({
     },
     reportedBy:
     {
-        type: employeeSchema
+        type: String,
     },
     assignedTo:{
-        type: employeeSchema
+        type: String,
     },
     openedDate: {
       type: String
@@ -273,7 +273,16 @@ app.get("/developerhomepage",function(req,res){
 //Tester module
 app.get("/testerhomepage",function(req,res){
   if(req.isAuthenticated()){
-    res.render("testerhomepage");
+    console.log("running user list.");
+    user.find({},function(err, foundusers){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log(foundusers.length);
+        res.render("testerhomepage",{bugList:foundusers});
+      }
+   });
   }else{
     res.redirect("/");
   }
@@ -289,6 +298,20 @@ app.get("/reportbugtester",function(req,res){
 
 app.post("/reportbugtester",function(req,res){
   console.log(req.body);
+  console.log(req.user);
+  const bug1 = new bug({
+    bugId:req.body.bugId,
+    projectId:req.body.projectId,
+    category:req.body.category,
+    severity:req.body.severity,
+    status:"to do",
+    reportedBy:req.user.name,
+    description:req.body.comment,
+    openedDate:req.body.openDate,
+    dueDate:req.body.dueDate
+  })
+  bug1.save();
+  res.redirect("/testerhomepage");
 })
 app.post("/testerhomepage",function(req,res){
 
