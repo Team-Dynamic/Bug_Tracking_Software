@@ -1,0 +1,94 @@
+<%- include("headeradmin") -%>
+
+  <div class="container">
+    <h2 class="">Report Bug</h2>
+    <form class="report_bug">
+      <div class="form-group row">
+        <label for="inputProjectId" class="col-sm-2 col-form-label">Project Id</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="inputProjectId" required autofocus>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputBugCategory" class="col-sm-2 col-form-label">Bug Category</label>
+        <div class="col-sm-4">
+          <select class="form-control" id="inputBugCategory" required>
+            <option value="" disabled selected>Choose one category...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputBugSeverity" class="col-sm-2 col-form-label">Bug Severity</label>
+        <div class="col-sm-4">
+          <select class="form-control" id="inputBugSeverity" required>
+            <option value="" disabled selected>Choose one...</option>
+            <option value="l">Low</option>
+            <option value="l">Medium</option>
+            <option value="l">High</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputBugId" class="col-sm-2 col-form-label">Unique Id</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="inputUniqueId" required>
+        </div>
+        <button class="col-sm-2 btn btn-secondary"type="button" value="Input" name="generate_unique_id">Generate</button>
+      </div>
+      <div class="form-group row">
+        <label for="report_due_date" class="col-sm-2 col-form-label">Due Date</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" id="report_due_date" placeholder="..." required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="report_bug_comments" class="col-sm-2 col-form-label">Comments</label>
+        <div class="col-sm-4">
+          <textarea class="form-control" id="report_bug_comments" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="custom-file form-group row">
+          <label class="custom-file-label col-sm-5" for="CustomFile">Choose file...</label>
+          <input type="file" accept="image/jpeg image/x-png" class="custom-file-input" id="CustomFile" required>
+          <div class="invalid-feedback">Invalid Format</div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+  <script>
+    $('.sidebar_btn').click(function() {
+      $(this).toggleClass("click");
+      $('.sidebar').toggleClass("show");
+    });
+    $('.feat-btn').click(function() {
+      $('nav ul .feat-show').toggleClass("show");
+      $('nav ul .first').toggleClass("rotate");
+    });
+    $('.serv-btn').click(function() {
+      $('nav ul .serv-show').toggleClass("show1");
+      $('nav ul .second').toggleClass("rotate");
+    });
+    $('nav ul li').click(function() {
+      $(this).addClass("active").siblings().removeClass("active");
+    });
+  </script>
+
+</body>
+
+</html>
