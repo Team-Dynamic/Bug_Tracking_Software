@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#563d7c">
 
   <link rel="stylesheet" href="css/sidebar.css">
-  <link rel="stylesheet" href="css/assign.css">
+  <link rel="stylesheet" href="css/master.css">
 
   <!--===============================================================================================-->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -24,6 +24,15 @@
 
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+  <script>
+    function change_tab(id) {
+      document.getElementById("page_content").innerHTML = document.getElementById(id + "_desc").innerHTML;
+      document.getElementById("Projects").className = "notselected";
+      document.getElementById("Bugs").className = "notselected";
+      document.getElementById(id).className = "selected";
+    }
+  </script>
 
   <style>
     /* Modify the background color */
@@ -47,7 +56,7 @@
       color: white;
     }
 
-    .btn-primary{
+    .btn-primary {
       margin-left: 135px;
     }
   </style>
@@ -144,82 +153,139 @@
   <h2 class="">Assign Users to Project</h2>
 
   <div class="container">
-    <form class="assign_user_form">
-      <div class="form-group row">
-        <label for="input_project_id" class="col-sm-2 col-form-label">Project Id</label>
-        <div class="col-sm-4">
-          <input type="text" name="input_project_id" class="form-control" id="input_project_id" required autofocus>
-        </div>
+    <div id="main_content">
+      <li class="selected" id="assign" onclick="change_tab(this.id);">Assign</li>
+      <li class="notselected" id="userlist" onclick="change_tab(this.id);">User List</li>
+
+      <div class='hidden_desc' id="assign_desc">
+        <form class="assign_user_form">
+          <div class="form-group row">
+            <label for="input_project_id" class="col-sm-2 col-form-label">Project Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_project_id" class="form-control" id="input_project_id" required autofocus>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="project_name" class="col-sm-2 col-form-label">Project Name</label>
+            <div class="col-sm-4">
+              <input type="text" name="project_name" class="form-control" id="project_name" required disabled>
+            </div>
+          </div>
+          <h3>Developers</h3>
+          <div class="form-group row">
+            <label for="input_dev_id" class="col-sm-2 col-form-label">Employee Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_dev_id" class="form-control" id="input_dev_id" required>
+            </div>
+            <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
+          </div>
+          <div class="form-group row">
+            <label for="dev_name" class="col-sm-2 col-form-label">Developers</label>
+            <div class="col-sm-4">
+              <textarea name="dev_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
+            </div>
+          </div>
+          <h3>Testers</h3>
+          <div class="form-group row">
+            <label for="input_tes_id" class="col-sm-2 col-form-label">Employee Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_tes_id" class="form-control" id="input_tes_id" required>
+            </div>
+            <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
+          </div>
+          <div class="form-group row">
+            <label for="tes_name" class="col-sm-2 col-form-label">Developers</label>
+            <div class="col-sm-4">
+              <textarea name="tes_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-group row">
-        <label for="project_name" class="col-sm-2 col-form-label">Project Name</label>
-        <div class="col-sm-4">
-          <input type="text" name="project_name" class="form-control" id="project_name" required disabled>
-        </div>
+
+      <div class='hidden_desc' id="userlist_desc">
+        <input style="margin-bottom: 30px;" class="form-control" id="search_text" type="text" placeholder="Search..">
+        <table id="user_table" class="table">
+          <thead class="thead-dark sticky">
+            <tr>
+              <th scope="col">Employee Id</th>
+              <th onclick="sortTable(1)" scope="col">Name</th>
+              <th onclick="sortTable(1)" scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody id="table_body">
+            <tr>
+              <th scope="row">1</th>
+              <td>Sri ram</td>
+              <td>Tester</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Ashok</td>
+              <td>Developer</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <h3>Developers</h3>
-      <div class="form-group row">
-        <label for="input_dev_id" class="col-sm-2 col-form-label">Employee Id</label>
-        <div class="col-sm-4">
-          <input type="text" name="input_dev_id" class="form-control" id="input_dev_id" required >
-        </div>
-        <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
+
+      <div id="page_content">
+        <form class="assign_user_form">
+          <div class="form-group row">
+            <label for="input_project_id" class="col-sm-2 col-form-label">Project Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_project_id" class="form-control" id="input_project_id" required autofocus>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="project_name" class="col-sm-2 col-form-label">Project Name</label>
+            <div class="col-sm-4">
+              <input type="text" name="project_name" class="form-control" id="project_name" required disabled>
+            </div>
+          </div>
+          <h3>Developers</h3>
+          <div class="form-group row">
+            <label for="input_dev_id" class="col-sm-2 col-form-label">Employee Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_dev_id" class="form-control" id="input_dev_id" required>
+            </div>
+            <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
+          </div>
+          <div class="form-group row">
+            <label for="dev_name" class="col-sm-2 col-form-label">Developers</label>
+            <div class="col-sm-4">
+              <textarea name="dev_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
+            </div>
+          </div>
+          <h3>Testers</h3>
+          <div class="form-group row">
+            <label for="input_tes_id" class="col-sm-2 col-form-label">Employee Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="input_tes_id" class="form-control" id="input_tes_id" required>
+            </div>
+            <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
+          </div>
+          <div class="form-group row">
+            <label for="tes_name" class="col-sm-2 col-form-label">Developers</label>
+            <div class="col-sm-4">
+              <textarea name="tes_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-group row">
-        <label for="dev_name" class="col-sm-2 col-form-label">Developers</label>
-        <div class="col-sm-4">
-          <textarea name="dev_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
-        </div>
-      </div>
-      <h3>Testers</h3>
-      <div class="form-group row">
-        <label for="input_tes_id" class="col-sm-2 col-form-label">Employee Id</label>
-        <div class="col-sm-4">
-          <input type="text" name="input_tes_id" class="form-control" id="input_tes_id" required >
-        </div>
-        <button class="col-sm-2 btn btn-secondary" type="button" value="Input" name="add_user">Add</button>
-      </div>
-      <div class="form-group row">
-        <label for="tes_name" class="col-sm-2 col-form-label">Developers</label>
-        <div class="col-sm-4">
-          <textarea name="tes_name" class="form-control" id="dev_name" rows="8" cols="80" required disabled></textarea>
-        </div>
-      </div>
-    </form>
-    <input class="form-control" id="search_text" type="text" placeholder="Search..">
-    <table id="user_table" class="table">
-  <thead class="thead-dark sticky">
-    <tr>
-      <th scope="col">Employee Id</th>
-      <th onclick="sortTable(1)" scope="col">Name</th>
-      <th onclick="sortTable(1)" scope="col">Role</th>
-    </tr>
-  </thead>
-  <tbody id="table_body">
-    <tr>
-      <th scope="row">1</th>
-      <td>Sri ram</td>
-      <td>Tester</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Ashok</td>
-      <td>Developer</td>
-    </tr>
-  </tbody>
-</table>
+
+    </div>
+
   </div>
 
   <script>
-$(document).ready(function(){
-  $("#search_text").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#table_body tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function() {
+      $("#search_text").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#table_body tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  });
-});
-</script>
+  </script>
 
   <script>
     $('.sidebar_btn').click(function() {
@@ -240,61 +306,61 @@ $(document).ready(function(){
   </script>
 
   <script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("user_table");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("user_table");
       switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
       }
     }
-  }
-}
-</script>
+  </script>
 
 </body>
 
