@@ -265,26 +265,34 @@ app.post("/forgotpassword", function(req,res) {
 })
 //Admin module
 app.get("/bugslist",function(req,res){
-  if(req.isAuthenticated()){
-    console.log("running total bugs list for admin.");
-    bug.find({},function(err, foundbugs){
-      if(err){
-        console.log(err);
-      }
-      else{
-        console.log(foundbugs);
-        console.log(req.user.name);
-        res.render("bugslist",{listbugs:foundbugs,uname:req.user.name});
-      }
-   });
+  if(req.isAuthenticated() ) {
+    if(req.user.role === "admin"){
+      console.log("running total bugs list for admin.");
+      bug.find({},function(err, foundbugs){
+        if(err){
+          console.log(err);
+        }
+        else{
+          console.log(foundbugs);
+          console.log(req.user.name);
+          res.render("bugslist",{listbugs:foundbugs,uname:req.user.name});
+        }
+     });
+   }else{
+     res.send("you are unauthorized to access this page")
+   }
   }else{
     res.redirect("/");
   }
 })
 
 app.get("/assign",function(req,res){
-  if(req.isAuthenticated()){
-    res.render("assign");
+  if(req.isAuthenticated() ) {
+    if(req.user.role === "admin"){
+        res.render("assign");
+    }else{
+      res.send("you are unauthorized to access this page")
+    }
   }else{
     res.redirect("/");
   }
@@ -292,6 +300,7 @@ app.get("/assign",function(req,res){
 
 app.get("/userlist",function(req,res){
   if(req.isAuthenticated()){
+    if(req.user.role === "admin"){
     console.log("running bugs list of tester.");
     user.find({},function(err, foundusers){
       if(err){
@@ -304,6 +313,9 @@ app.get("/userlist",function(req,res){
       }
    });
   }else{
+   res.send("you are unauthorized to access this page")
+  }
+}else{
     res.redirect("/");
   }
 })
@@ -344,8 +356,7 @@ app.get('/del/:variable', function(req,res){
 })
 
 app.get('/acpt/:variable', function(req,res){
-
-  request.find({email : req.params.variable},function(err, foundrequest){
+  request.find({name: req.params.variable},function(err, foundrequest){
       var r1 = foundrequest[0].email;
       var r2 = foundrequest[0].username;
       console.log(r1);
@@ -384,31 +395,43 @@ app.get('/acpt/:variable', function(req,res){
               }
             });
           }
+        })
+      });
+      request.deleteOne({name: req.params.variable}, function(err){
+         if(err){
+            console.log(err);
+          }else{
+             console.log("deleted");
+           }
       })
-});
-
-request.deleteOne({name: req.params.variable}, function(err){
-   if(err){
-      console.log(err);
-    }else{
-       console.log("deleted");
-     }})
    res.redirect('/usersrequests');
 })
 
 app.get("/usersrequests",function(req,res){
+  if(isAuthenticated()){
+   if(req.user.role === "admin"){
     request.find({},function(err, foundrequests){
         //console.log(foundusers.length);
       //  res.render("usersrequests",{requestsList:foundrequests});
          res.render("usersrequests1",{requestsList:foundrequests});
    });
+ }else{
+   res.send("you are unauthorized to access this page")
+ }
+}else{
+  res.redirect("/");
+}
 });
 
 
 //Developer module
 app.get("/developerhomepage",function(req,res){
   if(req.isAuthenticated()){
-    res.render("developerhomepage");
+    if(req.user.role==="developer"){
+      res.render("developerhomepage");
+    }else{
+      res.send("you are trying to access unauthorized page.")
+    }
   }else{
     res.redirect("/");
   }
@@ -416,25 +439,33 @@ app.get("/developerhomepage",function(req,res){
 //Tester module
 app.get("/testerhomepage",function(req,res){
   if(req.isAuthenticated()){
-    console.log("running bugs list of tester.");
-    bug.find({},function(err, foundbugs){
-      if(err){
-        console.log(err);
-      }
-      else{
-        console.log(foundbugs);
-        console.log(req.user.name);
-        res.render("testerhomepage",{bugslist:foundbugs,uname:req.user.name});
-      }
-   });
-  }else{
+    if(req.user.role==="tester"){
+      console.log("running bugs list of tester.");
+      bug.find({},function(err, foundbugs){
+        if(err){
+          console.log(err);
+        }
+        else{
+          console.log(foundbugs);
+          console.log(req.user.name);
+          res.render("testerhomepage",{bugslist:foundbugs,uname:req.user.name});
+        }
+     });
+    }else{
+      res.send("you are trying to access unauthorized page.")
+    }
+   }else{
     res.redirect("/");
   }
 })
 
 app.get("/reportbugtester",function(req,res){
   if(req.isAuthenticated()){
-    res.render("reportbugtester");
+    if(req.user.role==="tester"){
+      res.render("reportbugtester");
+    }else{
+      res.send("you are trying to access unauthorized page.")
+    }
   }else{
     res.redirect("/");
   }
@@ -460,6 +491,10 @@ app.post("/reportbugtester",function(req,res){
 })
 app.post("/testerhomepage",function(req,res){
 
+})
+//errors
+app.get("*",(req,res)=>{
+  res.send("404 not found")
 })
 //server
 app.listen(8484,function(){
