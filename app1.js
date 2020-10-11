@@ -125,7 +125,6 @@ const requestSchema = new mongoose.Schema({
       type: String,
       required: [true]
     },
-  password: String,
   contact:
   {
       type: String,
@@ -141,6 +140,7 @@ const requestSchema = new mongoose.Schema({
    type: String,
    enum: ['developer', 'tester', 'admin'],
   },
+  password: String
 })
 
 const user1  = new user ({
@@ -181,6 +181,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/signup',function(req,res){
+
   res.render("signup");
 });
 
@@ -195,7 +196,19 @@ app.get("/logout", function(req,res){
 
 app.post("/signup",function(req, res){
   console.log(req.body.fname);
-  user.register({name: req.body.fname,email: req.body.email,contact:req.body.contact_no,
+
+  let request1  = new request ({
+    name: req.body.fname,
+    role: req.body.role,
+    username : req.body.username,
+    email: req.body.email,
+    contact: req.body.contact_no,
+    password: req.body.password
+  });
+
+  request1.save();
+  res.send("Your signup request has been sent to the admin.Please check your mail for approval.");
+  /*user.register({name: req.body.fname,email: req.body.email,contact:req.body.contact_no,
   role:req.body.role,username:req.body.username}, req.body.password, function(err,user) {
     if(err){
       console.log(err);
@@ -203,7 +216,7 @@ app.post("/signup",function(req, res){
     }else{
       res.send("Your signup request has been sent to the admin. Please check your mail for approval.");
     }
-  })
+  })*/
 })
 
 app.post("/", function(req, res) {
@@ -292,6 +305,50 @@ app.get("/userlist",function(req,res){
     res.redirect("/");
   }
 })
+
+app.get('/del/:variable', function(req,res){
+  request.deleteOne({name : req.params.variable}, function(err){
+   if(err){
+      console.log(err);
+    }else{
+       console.log("deleted");
+     }})
+     res.redirect('/usersrequests');
+})
+
+app.get('/acpt/:variable', function(req,res){
+
+  request.find({name : req.params.variable},function(err, foundrequest){
+      var r1 = foundrequest[0].username;
+      console.log(r1);
+
+      user.register({name: foundrequest[0].name,email: foundrequest[0].email,contact:foundrequest[0].contact,
+      role:foundrequest[0].role,username:foundrequest[0].username},foundrequest[0].password, function(err,user) {
+        if(err){
+          console.log(err);
+        }else{
+          console.log("successfully accepted the request");
+        }
+      })
+});
+
+request.deleteOne({name: req.params.variable}, function(err){
+   if(err){
+      console.log(err);
+    }else{
+       console.log("deleted");
+     }})
+   res.redirect('/usersrequests');
+})
+
+app.get("/usersrequests",function(req,res){
+    request.find({},function(err, foundrequests){
+        //console.log(foundusers.length);
+      //  res.render("usersrequests",{requestsList:foundrequests});
+         res.render("usersrequests1",{requestsList:foundrequests});
+   });
+});
+
 
 //Developer module
 app.get("/developerhomepage",function(req,res){
