@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
+var generator = require('generate-password');
+const nodemailer =require("nodemailer");
 var flash = require('express-flash');
 const passportLocalMongoose = require("passport-local-mongoose");
 const app = express();
@@ -123,7 +125,8 @@ const requestSchema = new mongoose.Schema({
   },
   email:{
       type: String,
-      required: [true]
+      required: [true],
+      unique: true
     },
   contact:
   {
@@ -140,7 +143,6 @@ const requestSchema = new mongoose.Schema({
    type: String,
    enum: ['developer', 'tester', 'admin'],
   },
-  password: String
 })
 
 const user1  = new user ({
@@ -307,28 +309,81 @@ app.get("/userlist",function(req,res){
 })
 
 app.get('/del/:variable', function(req,res){
-  request.deleteOne({name : req.params.variable}, function(err){
+  const r1 = req.params.variable;
+  request.deleteOne({email : req.params.variable}, function(err){
    if(err){
       console.log(err);
     }else{
        console.log("deleted");
-     }})
-     res.redirect('/usersrequests');
+       console.log(r1);
+       let transporter = nodemailer.createTransport({
+         service:"gmail",
+         auth:{
+           user: "teamdynamicservice@gmail.com",
+           pass:"passworddynamic"
+         }
+
+       });
+       let mailOptions ={
+         from:"teamdynamicservice@gmail.com",
+         to:r1,
+         subject: "Request denied for dynamic bug tracker",
+         text:"You have been rejected by the admin."
+       };
+       transporter.sendMail(mailOptions, function(err,data){
+         if(err){
+           console.log("error2",err);
+         }
+         else{
+           console.log("Mail is sent");
+         }
+       })
+     }
+   })
+   res.redirect('/usersrequests');
 })
 
 app.get('/acpt/:variable', function(req,res){
 
-  request.find({name : req.params.variable},function(err, foundrequest){
-      var r1 = foundrequest[0].username;
+  request.find({email : req.params.variable},function(err, foundrequest){
+      var r1 = foundrequest[0].email;
+      var r2 = foundrequest[0].username;
       console.log(r1);
-
+      var password = generator.generate({
+          length: 10,
+          numbers: true
+        });
+      console.log(password);
       user.register({name: foundrequest[0].name,email: foundrequest[0].email,contact:foundrequest[0].contact,
-      role:foundrequest[0].role,username:foundrequest[0].username},foundrequest[0].password, function(err,user) {
+      role:foundrequest[0].role,username:foundrequest[0].username},password, function(err,user) {
         if(err){
           console.log(err);
         }else{
-          console.log("successfully accepted the request");
-        }
+            console.log(r1);
+            let transporter = nodemailer.createTransport({
+              service:"gmail",
+              auth:{
+                user: "teamdynamicservice@gmail.com",
+                pass:"passworddynamic"
+              }
+
+            });
+            let mailOptions ={
+              from:"teamdynamicservice@gmail.com",
+              to:r1,
+              subject: "access details for dynamic bug tracker",
+              text:"You have been accepted by the admin. Your login details are as follows:"+
+              "username- "+r2+", password- "+password+" If you want to change password use forgot password option."
+            };
+            transporter.sendMail(mailOptions, function(err,data){
+              if(err){
+                console.log("error2",err);
+              }
+              else{
+                console.log("Mail is sent");
+              }
+            });
+          }
       })
 });
 
