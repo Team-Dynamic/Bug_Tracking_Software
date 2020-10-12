@@ -408,7 +408,7 @@ app.get('/acpt/:variable', function(req,res){
 })
 
 app.get("/usersrequests",function(req,res){
-  if(isAuthenticated()){
+  if(req.isAuthenticated()){
    if(req.user.role === "admin"){
     request.find({},function(err, foundrequests){
         //console.log(foundusers.length);
